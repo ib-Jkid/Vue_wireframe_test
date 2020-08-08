@@ -16,13 +16,13 @@
 
     <div class="content">
       <div class="side-bar">
-        <div class="side-element">
+        <div :class="{ 'side-element': true, selected: isSelected(0) }" @click="activeTab = 0">
           <img class="box-icon" src="/img/icons/box.png" />
         </div>
-        <div class="side-element selected">
+        <div :class="{ 'side-element': true, selected: isSelected(1) }" @click="activeTab = 1">
           <img class="users-icon" src="/img/icons/users.png" />
         </div>
-        <div class="side-element">
+        <div :class="{ 'side-element': true, selected: isSelected(2) }" @click="activeTab = 2">
           <img class="card-icon" src="/img/icons/MyCards.png" />
         </div>
       </div>
@@ -41,9 +41,9 @@
           <div class="controls">
             <div class="select-form">
               <select class="select-box">
-                <option>Change role</option>
-                <option>Admin</option>
-                <option>Staff</option>
+                <option value="">Change role</option>
+                <option value="admin">Admin</option>
+                <option valsue="staff">Staff</option>
               </select>
               <button class="change-btn">Change</button>
               <input type="text" class="search-field" placeholder="Enter staff name here" />
@@ -66,7 +66,7 @@
               <thead class="thead">
                 <tr>
                   <th class="check">
-                    <input type="checkbox" class="checkbox" id="allchecker" />
+                    <input type="checkbox" class="checkbox" @click="selectAllStaff()" id="allchecker" />
                   </th>
                   <th>First Name</th>
                   <th>Last Name</th>
@@ -80,7 +80,7 @@
               <tbody class="tbody">
                 <tr v-for="staff in staffs" :key="staff.id">
                   <td class="small">
-                    <input type="checkbox" @click="selectStaff(staff.id)" class="checkbox" />
+                    <input type="checkbox" v-model="selectedStaffID" :value="staff.id" class="checkbox" />
                   </td>
                   <td class="large">{{ staff.first_name }}</td>
                   <td class="large">{{ staff.last_name }}</td>
@@ -125,31 +125,44 @@ export default {
       ],
       allSelected : false,
       selectedStaffID: [],
+      activeTab: 1,
+      selectedAll: false,
     }
   },
   methods: {
     deleteStaff(staffId) {
-      console.log("Staff deleted : " + staffId);
+      return staffId;
     },
-
-    selectStaff(staffId) {
-      let index = this.selectedStaffID.indexOf(staffId);
+     isSelected(index) {
+   
+      if(this.activeTab == index) return true;
+      return false; 
+    },
+    selectAllStaff() {
+      this.selectedStaffID = [];
       
-      if( index > -1 ) {
-         this.selectedStaffID.splice(index,1);
-
-         console.log(this.selectedStaffID);
-         return;
+      if(this.selectedAll) {
+        this.selectedAll = false;
+       return;
       }
+      
 
-      this.selectedStaffID.push(staffId);
-       console.log(this.selectedStaffID);
+      this.staffs.forEach(staff => {
+          this.selectedStaffID.push(staff.id);
+      });
+      this.selectedAll = true;
+        
 
+
+   
     }
 
 
 
 
+  },
+  computed: {
+   
   }
 }
 </script>
@@ -159,9 +172,10 @@ export default {
 .dashboard {
   background-color: #e5e5e5;
   width: 1680px;
+  overflow: auto;
 }
 .nav-bar {
-  width: 100%;
+  width: 1680px;
   height: 72px;
   display: grid;
   grid-template-columns: repeat(20, 1fr);
@@ -287,13 +301,14 @@ export default {
 
 .main {
   grid-column-start: 2;
-  grid-column-end: 23;
+  grid-column-end: 20;
 }
 
 .main .container {
   margin-left: 73px;
   margin-top: 93px;
   margin-right: 72px;
+  width: 1462px;
 }
 .main .header {
   display: grid;
@@ -332,6 +347,8 @@ export default {
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  border: none;
+
 
   /* identical to box height, or 122% */
   text-align: center;
@@ -370,7 +387,7 @@ export default {
 }
 
 .main .description p {
-  grid-column-start: 15;
+  grid-column-start: 16;
   grid-column-end: 22;
   font-family: Roboto;
   font-style: normal;
@@ -404,8 +421,10 @@ export default {
 .controls .select-form .select-box {
   width: 146px;
   height: 34px;
+    -webkit-appearance: none;
+    appearance: none;
 
-  background: #ffffff;
+  background-color: #ffffff;
   border: 1px solid rgba(106, 126, 138, 0.4);
   box-sizing: border-box;
   border-radius: 3px;
@@ -420,6 +439,15 @@ export default {
   letter-spacing: -0.08px;
 
   color: #6a7e8a;
+  background: url(/img/icons/Grouparrow.png) no-repeat 90% 50% #FFFFFF;
+  
+}
+
+.controls .select-form .select-box option {
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: rgb(12, 1, 1);
 }
 
 .controls .select-form .change-btn {
@@ -438,6 +466,7 @@ export default {
 
   color: #ffffff;
   margin-right: 17px;
+  border: none;
 }
 
 .controls .select-form .search-field {
@@ -616,22 +645,6 @@ color: #6A7E8A;
   display: none;
 }
 
-@media screen and (max-width: 1400px) {
-  .dashboard {
-  background-color: #e5e5e5;
-  width: 100%;
-}
 
-.main .description[data-v-039c5b43] {
-  
-    width: 100%;
-    height: 114px;
-}
-.main .header .create-btn {
-    grid-column-start: 14;
-}
-.controls .select-form {
-    grid-column-end: 25;
-}
-}
+
 </style>
