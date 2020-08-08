@@ -57,7 +57,7 @@
 
             <div class="row">
               <div class="form-group form-group-btn">
-                <button type="submit" class="submit-btn">
+                <button type="submit" @click="$router.push('/about')" class="submit-btn">
                   Continue
                 </button>
               </div>
