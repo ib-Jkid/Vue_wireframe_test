@@ -268,6 +268,7 @@ export default {
       .left-panel .content {
         margin-top: 728px;
         text-align: center;
+        display: block;
       }
 
       .left-panel .content h3 {
