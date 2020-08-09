@@ -80,9 +80,9 @@ export default {
       staff: {
         first_name: " ",
         last_name: " ",
-        email: " ",
-        phone_number: " ",
-        role: " "
+        email: "",
+        phone_number: "",
+        role: ""
       },
       url: this.$store.getters.getUrl
     };

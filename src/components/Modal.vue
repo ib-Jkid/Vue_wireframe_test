@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group-2">
                   <label>Role</label>
-                  <span v-if="staff.role == ''" class="error">Last name required</span>
+                  <span v-if="staff.role == ''" class="error">Role required</span>
                   <br />
                   <select :class="{'error-form':  staff.role == ''}" v-model="staff.role">
                     <option value>Select Role</option>

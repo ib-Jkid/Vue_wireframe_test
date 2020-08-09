@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    url: "https://crudcrud.com/api/ea13b2109fe04e54935d92ad64fc7c44/staffs/",
+    url: "https://crudcrud.com/api/0aa015c5f8514850bbe7a4f80dfd9e69/staffs/",
     loading: false,
     selectedStaffID: []
   },
