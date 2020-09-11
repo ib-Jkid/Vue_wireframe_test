@@ -6,7 +6,7 @@ Click this [Link](https://vuetest.modelsoftwares.com) to visit
 
 ## Screenshot
 
-### Eployees Page
+### Employees Page
 ![Bank Image](https://github.com/ib-Jkid/Vue_wireframe_test/blob/master/screenshot/Screenshot1.png?raw=true)
 
 ### Sign UP
